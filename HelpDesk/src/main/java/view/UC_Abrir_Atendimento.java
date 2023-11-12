@@ -2,9 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package com.mycompany.helpdesk;
+package view;
 
-import conexao.Conexao;
+import view.*;
+import classes.Ticket;
+import classes.TicketNivelPrioridade;
+import dao.TicketDAO;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -17,6 +23,14 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
      */
     public UC_Abrir_Atendimento() {
         initComponents();
+        
+        TicketDAO td = new TicketDAO();
+        List<TicketNivelPrioridade> niveis = td.listarNiveis();
+        
+        Cbx_Nivel.removeAll();
+        for(TicketNivelPrioridade n: niveis) {
+           Cbx_Nivel.addItem(n);
+        }
     }
 
     /**
@@ -31,10 +45,12 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         Txt_Titulo = new javax.swing.JTextField();
         TxtArea_Descricao = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Txt_Area_Descricao = new javax.swing.JTextArea();
         Btn_Enviar = new javax.swing.JButton();
-        Lbl_Descricao = new javax.swing.JLabel();
+        Lbl_Nivel = new javax.swing.JLabel();
         Lbl_Titulo = new javax.swing.JLabel();
+        Cbx_Nivel = new javax.swing.JComboBox();
+        Lbl_Descricao = new javax.swing.JLabel();
 
         setBorder(null);
         setClosable(true);
@@ -42,10 +58,10 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
         setTitle("Abrir atendimento");
         setToolTipText("");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        TxtArea_Descricao.setViewportView(jTextArea1);
-        jTextArea1.getAccessibleContext().setAccessibleName("TxtArea_Descricao");
+        Txt_Area_Descricao.setColumns(20);
+        Txt_Area_Descricao.setRows(5);
+        TxtArea_Descricao.setViewportView(Txt_Area_Descricao);
+        Txt_Area_Descricao.getAccessibleContext().setAccessibleName("TxtArea_Descricao");
 
         Btn_Enviar.setText("Enviar");
         Btn_Enviar.addActionListener(new java.awt.event.ActionListener() {
@@ -54,33 +70,36 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
             }
         });
 
-        Lbl_Descricao.setText("Descrição do atendimento");
+        Lbl_Nivel.setText("Nivel de prioridade:");
 
         Lbl_Titulo.setText("Titulo do atendimento");
+
+        Lbl_Descricao.setText("Descrição do atendimento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(Lbl_Titulo))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(Lbl_Descricao))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(TxtArea_Descricao, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(Txt_Titulo)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Btn_Enviar)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtArea_Descricao)
+                            .addComponent(Txt_Titulo)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(Lbl_Nivel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Cbx_Nivel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                .addComponent(Btn_Enviar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Lbl_Titulo)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(11, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Lbl_Descricao)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,18 +108,21 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
                 .addComponent(Lbl_Titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Txt_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Lbl_Descricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TxtArea_Descricao, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                .addComponent(TxtArea_Descricao, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Btn_Enviar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Enviar)
+                    .addComponent(Cbx_Nivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Lbl_Nivel))
                 .addGap(11, 11, 11))
         );
 
         Txt_Titulo.getAccessibleContext().setAccessibleName("Txt_Titulo");
         Btn_Enviar.getAccessibleContext().setAccessibleName("Btn_Enviar");
-        Lbl_Descricao.getAccessibleContext().setAccessibleName("Lbl_Descricao");
+        Lbl_Nivel.getAccessibleContext().setAccessibleName("Lbl_Descricao");
         Lbl_Titulo.getAccessibleContext().setAccessibleName("Lbl_Titulo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,34 +130,43 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_EnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_EnviarActionPerformed
-        Conexao c = new Conexao();
-        c.getConexao();
+        //Chama classes que precisamos
+        Ticket t = new Ticket();
+        TicketDAO td = new TicketDAO();
+        //Carrega os objetos
+        t.setTitulo(Txt_Titulo.getText());
+        t.setDescricao(Txt_Area_Descricao.getText());
+        t.setNivel(3);
+        t.setSituacao(1);
+        //Executa consulta
+        td.abrirChamado(t);
+        
+        Txt_Titulo.setText("");
+        Txt_Area_Descricao.setText("");
     }//GEN-LAST:event_Btn_EnviarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Enviar;
+    private javax.swing.JComboBox Cbx_Nivel;
     private javax.swing.JLabel Lbl_Descricao;
+    private javax.swing.JLabel Lbl_Nivel;
     private javax.swing.JLabel Lbl_Titulo;
     private javax.swing.JScrollPane TxtArea_Descricao;
+    private javax.swing.JTextArea Txt_Area_Descricao;
     private javax.swing.JTextField Txt_Titulo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
