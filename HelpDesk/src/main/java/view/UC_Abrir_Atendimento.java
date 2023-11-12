@@ -91,12 +91,12 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
                                 .addComponent(Lbl_Nivel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Cbx_Nivel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                                 .addComponent(Btn_Enviar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Lbl_Titulo)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(11, Short.MAX_VALUE))
+                        .addContainerGap(16, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Lbl_Descricao)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -129,9 +129,10 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,14 +146,19 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
         //Chama classes que precisamos
         Ticket t = new Ticket();
         TicketDAO td = new TicketDAO();
+        
         //Carrega os objetos
         t.setTitulo(Txt_Titulo.getText());
         t.setDescricao(Txt_Area_Descricao.getText());
-        t.setNivel(3);
+        TicketNivelPrioridade tn = (TicketNivelPrioridade) Cbx_Nivel.getSelectedItem();
+        t.setNivel(tn.getId());
         t.setSituacao(1);
+        t.setCliente(2);
+
         //Executa consulta
         td.abrirChamado(t);
         
+        //Limpa campos apos o envio dos dados
         Txt_Titulo.setText("");
         Txt_Area_Descricao.setText("");
     }//GEN-LAST:event_Btn_EnviarActionPerformed

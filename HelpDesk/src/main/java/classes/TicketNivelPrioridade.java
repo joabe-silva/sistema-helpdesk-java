@@ -28,10 +28,9 @@ public class TicketNivelPrioridade {
     public String getDescricao() {
         return descricao;
     }
-
+   
     @Override
     public String toString() {
         return this.getDescricao();
     }
-  
 }
