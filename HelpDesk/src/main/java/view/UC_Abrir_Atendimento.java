@@ -11,6 +11,7 @@ import dao.TicketDAO;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -146,21 +147,25 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
         //Chama classes que precisamos
         Ticket t = new Ticket();
         TicketDAO td = new TicketDAO();
-        
-        //Carrega os objetos
-        t.setTitulo(Txt_Titulo.getText());
-        t.setDescricao(Txt_Area_Descricao.getText());
-        TicketNivelPrioridade tn = (TicketNivelPrioridade) Cbx_Nivel.getSelectedItem();
-        t.setNivel(tn.getId());
-        t.setSituacao(1);
-        t.setCliente(2);
+       
+        if(Txt_Titulo.getText().isEmpty() || Txt_Area_Descricao.getText().isEmpty()) { 
+            JOptionPane.showMessageDialog(null, "Favor preencha todos os campos!");
+        } else {
+            //Carrega os objetos
+            t.setTitulo(Txt_Titulo.getText());
+            t.setDescricao(Txt_Area_Descricao.getText());
+            TicketNivelPrioridade tn = (TicketNivelPrioridade) Cbx_Nivel.getSelectedItem();
+            t.setNivel(tn.getId());
+            t.setSituacao(1);
+            t.setCliente(2);
 
-        //Executa consulta
-        td.abrirChamado(t);
-        
-        //Limpa campos apos o envio dos dados
-        Txt_Titulo.setText("");
-        Txt_Area_Descricao.setText("");
+            //Executa consulta
+            td.abrirChamado(t);
+
+            //Limpa campos apos o envio dos dados
+            Txt_Titulo.setText("");
+            Txt_Area_Descricao.setText("");
+        }
     }//GEN-LAST:event_Btn_EnviarActionPerformed
 
 
