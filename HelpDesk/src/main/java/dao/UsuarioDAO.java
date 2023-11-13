@@ -28,6 +28,30 @@ public class UsuarioDAO {
         this.conn = this.conexao.getConexao();
     }
     
+    public List<TicketNivelPrioridade> listarSituacao() {
+        String sql = "select * from def_usuario_situacao";
+      
+        try {
+            List<TicketNivelPrioridade> situacao = new ArrayList<>();
+            
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                TicketNivelPrioridade np = new TicketNivelPrioridade();
+                
+                np.setId(rs.getInt("ID"));
+                np.setDescricao(rs.getString("DESCRICAO"));
+                
+                situacao.add(np);
+            }
+            
+            return situacao;
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
     public ResultSet login(Usuario usu) {
         String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO = ? AND u.SENHA = ?";
         try {
@@ -48,6 +72,38 @@ public class UsuarioDAO {
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setInt(1, usu.getId());
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
+    public ResultSet listaUsuariosPorSituacao(Usuario usu) {
+        String sql = "SELECT u.ID, u.USUARIO, u.SENHA, u.NOME, dup.DESCRICAO AS PERFIL, dus.DESCRICAO AS SITUACAO \n" +
+                     "FROM usuario u \n" +
+                     "INNER JOIN def_usuario_perfil dup ON dup.ID = u.PERFIL  \n" +
+                     "INNER JOIN def_usuario_situacao dus ON dus.ID = u.SITUACAO \n" +
+                     "WHERE u.SITUACAO = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, usu.getSituacao());
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
+    public ResultSet listaUsuariosPorUsuario(Usuario usu) {
+        String sql = "SELECT u.ID, u.USUARIO, u.SENHA, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, "%"+usu.getUsuario()+"%");
             ResultSet rs = stmt.executeQuery();
             
             return(rs);

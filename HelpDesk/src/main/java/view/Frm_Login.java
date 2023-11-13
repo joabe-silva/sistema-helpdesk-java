@@ -46,6 +46,7 @@ public class Frm_Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Helpdesk");
 
         Lbl_Usuario.setText("Usuário");
 
@@ -129,7 +130,7 @@ public class Frm_Login extends javax.swing.JFrame {
                 ResultSet res = ud.login(usu);
                 if(res.next()) {
                     
-                    if(res.getObject("SITUACAO").equals(0)) {
+                    if(res.getObject("SITUACAO").equals(1)) {
           
                        if(res.getObject("PERFIL").equals(1)) {
                     

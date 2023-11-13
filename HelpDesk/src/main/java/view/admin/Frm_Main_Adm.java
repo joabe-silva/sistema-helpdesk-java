@@ -79,7 +79,7 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
 
         jMenu1.setText("Configurações");
 
-        jMenuItem1.setText("Meu Usuario");
+        jMenuItem1.setText("Meu Perfil");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -120,6 +120,11 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
         jMenu3.setText("Cadastro");
 
         jMenuItem5.setText("Usuarios");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem5);
 
         jMenuItem6.setText("Niveis de prioridade");
@@ -168,6 +173,12 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        UC_Cadastro_Usuario_Adm f = new UC_Cadastro_Usuario_Adm(this.ID);
+        jDesktopPane1.add(f);
+        f.show();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

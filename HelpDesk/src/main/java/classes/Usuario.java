@@ -10,7 +10,15 @@ package classes;
  */
 public class Usuario {
     
-    private int id, perfil;
+    private int id, perfil, situacao;
+
+    public void setSituacao(int situacao) {
+        this.situacao = situacao;
+    }
+
+    public int getSituacao() {
+        return situacao;
+    }
     private String usuario, senha, nome;
 
     public void setId(int id) {
