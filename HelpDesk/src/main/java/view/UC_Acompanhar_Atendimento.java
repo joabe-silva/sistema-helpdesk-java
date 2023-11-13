@@ -5,8 +5,14 @@
 package view;
 
 import classes.TicketNivelPrioridade;
+import classes.Usuario;
 import dao.TicketDAO;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import view.*;
 
 /**
@@ -14,6 +20,8 @@ import view.*;
  * @author ERNANI
  */
 public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
+
+    private String ID;
 
     /**
      * Creates new form UC_Acompanhar_Atendimento
@@ -32,6 +40,8 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
     
     public UC_Acompanhar_Atendimento(String id) {
         initComponents();
+        
+        ID = id;
         
         TicketDAO td = new TicketDAO();
         List<TicketNivelPrioridade> situacao  = td.listarSituacao();
@@ -63,7 +73,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
         Lbl_Data_Final = new javax.swing.JLabel();
         JP_Atendimentos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tb_Tickets = new javax.swing.JTable();
         Btn_Abrir = new javax.swing.JButton();
 
         setClosable(true);
@@ -158,7 +168,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
 
         JP_Atendimentos.setBorder(javax.swing.BorderFactory.createTitledBorder("Atendimentos"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tb_Tickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -166,7 +176,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Ticket", "Descrição", "Data", "Técnico", "Situação"
+                "Ticket", "Titulo", "Data", "Técnico", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -177,7 +187,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tb_Tickets);
 
         javax.swing.GroupLayout JP_AtendimentosLayout = new javax.swing.GroupLayout(JP_Atendimentos);
         JP_Atendimentos.setLayout(JP_AtendimentosLayout);
@@ -231,7 +241,21 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_PesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_PesquisaActionPerformed
-        // TODO add your handling code here:
+        Usuario usu = new Usuario();
+        TicketDAO td = new TicketDAO();
+        
+        usu.setId(Integer.parseInt(this.ID));
+        ResultSet rs = td.listarChamadosCliente(usu);
+       
+        DefaultTableModel model  = (DefaultTableModel) Tb_Tickets.getModel();
+        model.setRowCount(0);
+        try {
+            while(rs.next()) {
+                model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("SITUACAO")});
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro: "+e.getMessage());;
+        }
     }//GEN-LAST:event_Btn_PesquisaActionPerformed
 
 
@@ -245,10 +269,10 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Lbl_Data_Inicio;
     private javax.swing.JLabel Lbl_Descricao;
     private javax.swing.JLabel Lbl_Situacao;
+    private javax.swing.JTable Tb_Tickets;
     private javax.swing.JFormattedTextField Txt_Data_Final;
     private javax.swing.JFormattedTextField Txt_Data_Inicio;
     private javax.swing.JTextField Txt_Pesquisa;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
