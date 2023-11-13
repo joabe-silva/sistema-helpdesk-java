@@ -4,6 +4,7 @@
  */
 package view.cliente;
 
+import classes.Ticket;
 import view.*;
 import classes.TicketNivelPrioridade;
 import classes.Usuario;
@@ -242,20 +243,44 @@ public class UC_Acompanhar_Atendimento_Cliente extends javax.swing.JInternalFram
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_PesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_PesquisaActionPerformed
-        Usuario usu = new Usuario();
+        Usuario u = new Usuario();
+        Ticket t = new Ticket();
         TicketDAO td = new TicketDAO();
         
-        usu.setId(Integer.parseInt(this.ID));
-        ResultSet rs = td.listarChamadosCliente(usu);
-       
-        DefaultTableModel model  = (DefaultTableModel) Tb_Tickets.getModel();
-        model.setRowCount(0);
-        try {
-            while(rs.next()) {
-                model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("SITUACAO")});
+        if(Txt_Pesquisa.getText().isEmpty()) {
+            
+            TicketNivelPrioridade tn = (TicketNivelPrioridade) Cbx_Situacao.getSelectedItem();
+            t.setSituacao(tn.getId());
+
+            u.setId(Integer.parseInt(this.ID));
+            ResultSet rs = td.listarChamadosCliente(u, t);
+
+            DefaultTableModel model  = (DefaultTableModel) Tb_Tickets.getModel();
+            model.setRowCount(0);
+            try {
+                while(rs.next()) {
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("SITUACAO")});
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro: "+e.getMessage());;
             }
-        } catch (SQLException e) {
-            System.out.println("Erro: "+e.getMessage());;
+            
+        } else {
+            
+            t.setTitulo(Txt_Pesquisa.getText());
+            u.setId(Integer.parseInt(this.ID));
+            ResultSet rs = td.listarChamadosClientePorTitulo(u, t);
+
+            DefaultTableModel model  = (DefaultTableModel) Tb_Tickets.getModel();
+            model.setRowCount(0);
+            try {
+                while(rs.next()) {
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("SITUACAO")});
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro: "+e.getMessage());;
+            }
+            
         }
     }//GEN-LAST:event_Btn_PesquisaActionPerformed
 

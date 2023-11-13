@@ -246,6 +246,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         TicketDAO td = new TicketDAO();
         
         usu.setId(Integer.parseInt(this.ID));
+        /*
         ResultSet rs = td.listarChamadosCliente(usu);
        
         DefaultTableModel model  = (DefaultTableModel) Tb_Tickets.getModel();
@@ -257,6 +258,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         } catch (SQLException e) {
             System.out.println("Erro: "+e.getMessage());;
         }
+        */
     }//GEN-LAST:event_Btn_PesquisaActionPerformed
 
 

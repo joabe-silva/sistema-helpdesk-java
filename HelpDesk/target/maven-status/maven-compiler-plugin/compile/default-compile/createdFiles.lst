@@ -2,6 +2,7 @@ view\admin\Frm_Main_Adm$2.class
 view\admin\UC_Acompanhar_Atendimento_Adm$1.class
 view\cliente\Frm_Main_Cliente.class
 view\admin\Frm_Main_Adm$4.class
+view\cliente\Frm_Main_Cliente$4.class
 view\Frm_Login.class
 dao\TicketDAO.class
 conexao\Conexao.class
