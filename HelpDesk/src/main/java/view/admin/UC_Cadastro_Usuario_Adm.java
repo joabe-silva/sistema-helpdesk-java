@@ -34,10 +34,21 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
         
         UsuarioDAO use = new UsuarioDAO();
         List<TicketNivelPrioridade> situacao = use.listarSituacao();
+        List<TicketNivelPrioridade> perfil = use.listarPerfil();
         
         Cbx_Situacao.removeAll();
         for(TicketNivelPrioridade s: situacao ) {
            Cbx_Situacao.addItem(s);
+        }
+        
+        Cbx_Situacao_Cadastro.removeAll();
+        for(TicketNivelPrioridade s: situacao ) {
+           Cbx_Situacao_Cadastro.addItem(s);
+        }
+        
+        Cbx_Perfil_Cadastro.removeAll();
+        for(TicketNivelPrioridade p: perfil ) {
+           Cbx_Perfil_Cadastro.addItem(p);
         }
     }
     
@@ -48,10 +59,21 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
         
         UsuarioDAO use = new UsuarioDAO();
         List<TicketNivelPrioridade> situacao = use.listarSituacao();
-        
+        List<TicketNivelPrioridade> perfil = use.listarPerfil();
+         
         Cbx_Situacao.removeAll();
         for(TicketNivelPrioridade s: situacao ) {
            Cbx_Situacao.addItem(s);
+        }
+        
+        Cbx_Situacao_Cadastro.removeAll();
+        for(TicketNivelPrioridade s: situacao ) {
+           Cbx_Situacao_Cadastro.addItem(s);
+        }
+        
+        Cbx_Perfil_Cadastro.removeAll();
+        for(TicketNivelPrioridade p: perfil ) {
+           Cbx_Perfil_Cadastro.addItem(p);
         }
     }
 
@@ -361,7 +383,18 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
 
         } else {
 
-            
+            u.setUsuario(Txt_Usuario.getText());
+            ResultSet rs = td.listaUsuariosPorUsuario(u);
+
+            DefaultTableModel model  = (DefaultTableModel) Tb_Usuarios.getModel();
+            model.setRowCount(0);
+            try {
+                while(rs.next()) {
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("USUARIO"), rs.getString("SITUACAO")});
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro: "+e.getMessage());
+            }
 
         }
 
@@ -372,7 +405,21 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_Abrir1ActionPerformed
 
     private void Btn_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CadastroActionPerformed
-        // TODO add your handling code here:
+                
+        Usuario u = new Usuario();
+        UsuarioDAO ud = new UsuarioDAO();
+        
+        TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Cadastro.getSelectedItem();
+        TicketNivelPrioridade p = (TicketNivelPrioridade) Cbx_Perfil_Cadastro.getSelectedItem();
+        
+        u.setNome(Txt_Nome_Cadastro.getText());
+        u.setUsuario(Txt_Usuario_Cadastro.getText());
+        u.setSenha(Txt_Senha_Cadastro.getText());
+        u.setSituacao(s.getId());
+        u.setPerfil(p.getId());
+        
+        ud.cadastroUsuario(u);
+        
     }//GEN-LAST:event_Btn_CadastroActionPerformed
 
     private void Btn_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AlterarActionPerformed

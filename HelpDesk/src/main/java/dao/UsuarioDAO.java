@@ -52,6 +52,30 @@ public class UsuarioDAO {
         }
     }
     
+    public List<TicketNivelPrioridade> listarPerfil() {
+        String sql = "select * from def_usuario_perfil";
+      
+        try {
+            List<TicketNivelPrioridade> perfil = new ArrayList<>();
+            
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                TicketNivelPrioridade np = new TicketNivelPrioridade();
+                
+                np.setId(rs.getInt("ID"));
+                np.setDescricao(rs.getString("DESCRICAO"));
+                
+                perfil.add(np);
+            }
+            
+            return perfil;
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
     public ResultSet login(Usuario usu) {
         String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO = ? AND u.SENHA = ?";
         try {
@@ -100,10 +124,27 @@ public class UsuarioDAO {
     }
     
     public ResultSet listaUsuariosPorUsuario(Usuario usu) {
-        String sql = "SELECT u.ID, u.USUARIO, u.SENHA, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO = ?";
+        String sql = "SELECT u.ID, u.USUARIO, u.SENHA, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO LIKE ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, "%"+usu.getUsuario()+"%");
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
+    public ResultSet cadastroUsuario(Usuario usu) {
+        String sql = "INSERT INTO usuario(USUARIO, SENHA, NOME, PERFIL) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, usu.getUsuario());
+            stmt.setString(2, usu.getSenha());
+            stmt.setString(3, usu.getNome());
+            stmt.setInt(4, usu.getPerfil());
             ResultSet rs = stmt.executeQuery();
             
             return(rs);
