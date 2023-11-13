@@ -18,6 +18,10 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
     public UC_Acompanhar_Atendimento() {
         initComponents();
     }
+    
+    public UC_Acompanhar_Atendimento(String id) {
+        initComponents();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

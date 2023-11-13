@@ -19,11 +19,26 @@ import javax.swing.JOptionPane;
  */
 public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
 
+    private String ID;
+
     /**
      * Creates new form UC_Abrir_Atendimento
      */
     public UC_Abrir_Atendimento() {
         initComponents();
+        
+        TicketDAO td = new TicketDAO();
+        List<TicketNivelPrioridade> niveis = td.listarNiveis();
+        
+        Cbx_Nivel.removeAll();
+        for(TicketNivelPrioridade n: niveis) {
+           Cbx_Nivel.addItem(n);
+        }
+    }
+    
+    public UC_Abrir_Atendimento(String id) {
+        initComponents();
+        this.ID = id;
         
         TicketDAO td = new TicketDAO();
         List<TicketNivelPrioridade> niveis = td.listarNiveis();
@@ -157,8 +172,8 @@ public class UC_Abrir_Atendimento extends javax.swing.JInternalFrame {
             TicketNivelPrioridade tn = (TicketNivelPrioridade) Cbx_Nivel.getSelectedItem();
             t.setNivel(tn.getId());
             t.setSituacao(1);
-            t.setCliente(2);
-
+            t.setCliente(Integer.parseInt(ID));
+            
             //Executa consulta
             td.abrirChamado(t);
 

@@ -146,13 +146,13 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        UC_Abrir_Atendimento f = new UC_Abrir_Atendimento();
+        UC_Abrir_Atendimento f = new UC_Abrir_Atendimento(this.ID);
         jDesktopPane1.add(f);
         f.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        UC_Acompanhar_Atendimento f = new UC_Acompanhar_Atendimento();
+        UC_Acompanhar_Atendimento f = new UC_Acompanhar_Atendimento(this.ID);
         jDesktopPane1.add(f);
         f.show();
     }//GEN-LAST:event_jMenuItem4ActionPerformed

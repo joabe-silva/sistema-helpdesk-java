@@ -126,19 +126,25 @@ public class Frm_Login extends javax.swing.JFrame {
             try {
                 ResultSet res = ud.login(usu);
                 if(res.next()) {
-             
-                    if(res.getObject("PERFIL").equals(1)) {
                     
-                        Frm_Main_Adm f = new Frm_Main_Adm(res.getString("ID"));
-                        f.setVisible(true);
-                        this.dispose();
+                    if(res.getObject("SITUACAO").equals(0)) {
+          
+                       if(res.getObject("PERFIL").equals(1)) {
                     
+                            Frm_Main_Adm f = new Frm_Main_Adm(res.getString("ID"));
+                            f.setVisible(true);
+                            this.dispose();
+                    
+                        } else {
+
+                            Frm_Main_Cliente f = new Frm_Main_Cliente();
+                            f.setVisible(true);
+                            this.dispose();
+
+                        }
+                       
                     } else {
-                        
-                        Frm_Main_Cliente f = new Frm_Main_Cliente();
-                        f.setVisible(true);
-                        this.dispose();
-                        
+                        JOptionPane.showMessageDialog(null, "Usuário bloqueado! Contate o adm do sistema.");
                     }
                     
                 } else {

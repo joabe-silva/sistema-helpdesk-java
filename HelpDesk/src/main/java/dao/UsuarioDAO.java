@@ -29,7 +29,7 @@ public class UsuarioDAO {
     }
     
     public ResultSet login(Usuario usu) {
-        String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL FROM usuario u WHERE u.USUARIO = ? AND u.SENHA = ?";
+        String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO = ? AND u.SENHA = ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, usu.getUsuario());

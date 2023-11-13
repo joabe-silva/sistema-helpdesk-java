@@ -7,6 +7,7 @@ package dao;
 //import classes.Ticket;
 import classes.Ticket;
 import classes.TicketNivelPrioridade;
+import classes.Usuario;
 import conexao.Conexao;
 import java.util.List;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class TicketDAO {
         String sql = "INSERT INTO ticket(ID_CLIENTE, ID_NIVEL, ID_SITUACAO, TITULO, DESCRICAO) VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
-            stmt.setInt(1, 2);
+            stmt.setInt(1, ticket.getCliente());
             stmt.setInt(2, ticket.getNivel());
             stmt.setInt(3, ticket.getSituacao());
             stmt.setString(4, ticket.getTitulo());
@@ -63,6 +64,20 @@ public class TicketDAO {
             stmt.execute();
         } catch(Exception e){
             System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+        }
+    }
+    
+    public ResultSet listarChamado(Usuario usu) {
+        String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL FROM usuario u WHERE u.ID = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, usu.getId());
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
         }
     }
 }
