@@ -97,7 +97,8 @@ public class TicketDAO {
                      " INNER JOIN def_situacao ds ON ds.ID = t.ID_SITUACAO \n" +
                      " INNER JOIN def_nivel_prioridade dnp ON dnp.ID = t.ID_NIVEL \n" +
                      " LEFT JOIN usuario u ON u.ID = t.ID_TECNICO \n" +
-                     "WHERE t.ID_CLIENTE = ?";
+                     "WHERE t.ID_CLIENTE = ? \n"+
+                     "ORDER BY t.DATA_ABERTURA DESC";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setInt(1, usu.getId());

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package view;
+package view.admin;
 
+import view.*;
 import classes.TicketNivelPrioridade;
 import classes.Usuario;
 import dao.TicketDAO;
@@ -19,14 +20,14 @@ import view.*;
  *
  * @author ERNANI
  */
-public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
+public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
 
     private String ID;
 
     /**
      * Creates new form UC_Acompanhar_Atendimento
      */
-    public UC_Acompanhar_Atendimento() {
+    public UC_Acompanhar_Atendimento_Adm() {
         initComponents();
         
         TicketDAO td = new TicketDAO();
@@ -38,7 +39,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
         }
     }
     
-    public UC_Acompanhar_Atendimento(String id) {
+    public UC_Acompanhar_Atendimento_Adm(String id) {
         initComponents();
         
         ID = id;

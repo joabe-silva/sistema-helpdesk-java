@@ -4,6 +4,8 @@
  */
 package view;
 
+import view.cliente.Frm_Main_Cliente;
+import view.admin.Frm_Main_Adm;
 import classes.Usuario;
 import dao.UsuarioDAO;
 import java.sql.ResultSet;
@@ -137,7 +139,7 @@ public class Frm_Login extends javax.swing.JFrame {
                     
                         } else {
 
-                            Frm_Main_Cliente f = new Frm_Main_Cliente();
+                            Frm_Main_Cliente f = new Frm_Main_Cliente(res.getString("ID"));
                             f.setVisible(true);
                             this.dispose();
 
