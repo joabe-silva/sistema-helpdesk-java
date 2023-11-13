@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Nov-2023 às 00:39
+-- Tempo de geração: 13/11/2023 às 04:59
 -- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `def_nivel_prioridade`
+-- Estrutura para tabela `def_nivel_prioridade`
 --
 
 CREATE TABLE `def_nivel_prioridade` (
@@ -33,7 +33,7 @@ CREATE TABLE `def_nivel_prioridade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `def_nivel_prioridade`
+-- Despejando dados para a tabela `def_nivel_prioridade`
 --
 
 INSERT INTO `def_nivel_prioridade` (`ID`, `DESCRICAO`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `def_nivel_prioridade` (`ID`, `DESCRICAO`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `def_situacao`
+-- Estrutura para tabela `def_situacao`
 --
 
 CREATE TABLE `def_situacao` (
@@ -53,7 +53,7 @@ CREATE TABLE `def_situacao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `def_situacao`
+-- Despejando dados para a tabela `def_situacao`
 --
 
 INSERT INTO `def_situacao` (`ID`, `DESCRICAO`) VALUES
@@ -65,7 +65,7 @@ INSERT INTO `def_situacao` (`ID`, `DESCRICAO`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `ticket`
+-- Estrutura para tabela `ticket`
 --
 
 CREATE TABLE `ticket` (
@@ -76,21 +76,25 @@ CREATE TABLE `ticket` (
   `ID_SITUACAO` int(11) DEFAULT NULL,
   `DATA_ABERTURA` datetime DEFAULT current_timestamp(),
   `DATA_FECHAMENTO` datetime DEFAULT NULL,
-  `TITULO` varchar(45) NOT NULL,
+  `TITULO` varchar(60) NOT NULL,
   `DESCRICAO` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `ticket`
+-- Despejando dados para a tabela `ticket`
 --
 
 INSERT INTO `ticket` (`ID`, `ID_TECNICO`, `ID_CLIENTE`, `ID_NIVEL`, `ID_SITUACAO`, `DATA_ABERTURA`, `DATA_FECHAMENTO`, `TITULO`, `DESCRICAO`) VALUES
-(1, 1, 2, 3, 1, '2023-11-05 23:37:45', NULL, 'IMPRESSORA MANCHANDO IMPRESSÕES', 'IMPRESSORA DO SETOR COMERCIAL DESDE SEXTA FEIRA ESTÁ MANCHANDO AS IMPRESSÕES.');
+(17, 1, 1, 3, 1, '2023-11-12 22:48:42', NULL, 'AAAAAAAAAAAAAAAAAA', 'AAAAAAAAAAAAAAAAAAAAA'),
+(18, NULL, 1, 1, 1, '2023-11-12 23:12:19', NULL, 'BBBBBBBBBBBB', 'BBBBBBBBBBBBBB'),
+(19, NULL, 3, 1, 1, '2023-11-12 23:31:12', NULL, 'ATENDIMENTO DO DANIEL', 'ATENDIMENTO DO DANIEL'),
+(20, NULL, 2, 1, 4, '2023-11-12 23:48:59', NULL, 'ATENDIMENTO DO IVAN', 'AAAAAAAH'),
+(21, NULL, 2, 2, 4, '2023-11-13 00:02:01', NULL, 'EM ANDAMENTO', 'AAAAAAAAAAA');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `ticket_comentario`
+-- Estrutura para tabela `ticket_comentario`
 --
 
 CREATE TABLE `ticket_comentario` (
@@ -104,7 +108,7 @@ CREATE TABLE `ticket_comentario` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario`
+-- Estrutura para tabela `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -112,35 +116,37 @@ CREATE TABLE `usuario` (
   `USUARIO` varchar(40) NOT NULL,
   `SENHA` varchar(60) NOT NULL,
   `NOME` varchar(45) NOT NULL,
-  `PERFIL` int(11) NOT NULL
+  `PERFIL` int(11) NOT NULL,
+  `SITUACAO` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuario`
+-- Despejando dados para a tabela `usuario`
 --
 
-INSERT INTO `usuario` (`ID`, `USUARIO`, `SENHA`, `NOME`, `PERFIL`) VALUES
-(1, 'JOABE', '123456', 'JOABE SILVA', 1),
-(2, 'IVAN', '123456', 'IVANILSON', 2);
+INSERT INTO `usuario` (`ID`, `USUARIO`, `SENHA`, `NOME`, `PERFIL`, `SITUACAO`) VALUES
+(1, 'JOABE', '123', 'JOABE SILVA', 1, 0),
+(2, 'IVAN', '123', 'IVANILSON', 2, 0),
+(3, 'DANIEL', '123', 'DANIEL', 1, 0);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `def_nivel_prioridade`
+-- Índices de tabela `def_nivel_prioridade`
 --
 ALTER TABLE `def_nivel_prioridade`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Índices para tabela `def_situacao`
+-- Índices de tabela `def_situacao`
 --
 ALTER TABLE `def_situacao`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Índices para tabela `ticket`
+-- Índices de tabela `ticket`
 --
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`ID`),
@@ -150,7 +156,7 @@ ALTER TABLE `ticket`
   ADD KEY `ID_SITUACAO` (`ID_SITUACAO`);
 
 --
--- Índices para tabela `ticket_comentario`
+-- Índices de tabela `ticket_comentario`
 --
 ALTER TABLE `ticket_comentario`
   ADD PRIMARY KEY (`ID`),
@@ -158,13 +164,13 @@ ALTER TABLE `ticket_comentario`
   ADD KEY `ID_USUARIO` (`ID_USUARIO`);
 
 --
--- Índices para tabela `usuario`
+-- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -183,7 +189,7 @@ ALTER TABLE `def_situacao`
 -- AUTO_INCREMENT de tabela `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `ticket_comentario`
@@ -195,14 +201,14 @@ ALTER TABLE `ticket_comentario`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `ticket`
+-- Restrições para tabelas `ticket`
 --
 ALTER TABLE `ticket`
   ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`ID_TECNICO`) REFERENCES `usuario` (`ID`),
@@ -211,7 +217,7 @@ ALTER TABLE `ticket`
   ADD CONSTRAINT `ticket_ibfk_4` FOREIGN KEY (`ID_SITUACAO`) REFERENCES `def_situacao` (`ID`);
 
 --
--- Limitadores para a tabela `ticket_comentario`
+-- Restrições para tabelas `ticket_comentario`
 --
 ALTER TABLE `ticket_comentario`
   ADD CONSTRAINT `ticket_comentario_ibfk_1` FOREIGN KEY (`ID_TICKET`) REFERENCES `ticket` (`ID`),
