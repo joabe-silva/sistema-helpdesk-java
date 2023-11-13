@@ -1,3 +1,4 @@
+view\UC_Atendimento_Detalhe.class
 view\admin\Frm_Main_Adm$2.class
 view\admin\UC_Acompanhar_Atendimento_Adm$1.class
 view\cliente\Frm_Main_Cliente.class
@@ -23,6 +24,7 @@ view\admin\Frm_Main_Adm$5.class
 view\admin\UC_Acompanhar_Atendimento_Adm.class
 view\cliente\Frm_Main_Cliente$5.class
 view\cliente\UC_Acompanhar_Atendimento_Cliente.class
+view\admin\UC_Acompanhar_Atendimento_Adm$3.class
 view\UC_Meu_Perfil.class
 classes\Usuario.class
 view\cliente\UC_Acompanhar_Atendimento_Cliente$2.class

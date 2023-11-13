@@ -209,6 +209,11 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         );
 
         Btn_Abrir.setText("Abrir");
+        Btn_Abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_AbrirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,6 +289,10 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         }
     
     }//GEN-LAST:event_Btn_PesquisaActionPerformed
+
+    private void Btn_AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AbrirActionPerformed
+       
+    }//GEN-LAST:event_Btn_AbrirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
