@@ -112,6 +112,26 @@ public class TicketDAO {
         }
     }
     
+    public ResultSet listarChamadosAdm(Usuario usu, Ticket tic) {
+        String sql = "SELECT t.ID, t.TITULO, t.DESCRICAO, ds.DESCRICAO AS SITUACAO, dnp.DESCRICAO AS NIVEL, u.NOME AS TECNICO, t.DATA_ABERTURA, t.DATA_FECHAMENTO \n" +
+                     "FROM ticket t \n" +
+                     " INNER JOIN def_situacao ds ON ds.ID = t.ID_SITUACAO \n" +
+                     " INNER JOIN def_nivel_prioridade dnp ON dnp.ID = t.ID_NIVEL \n" +
+                     " LEFT JOIN usuario u ON u.ID = t.ID_TECNICO \n" +
+                     "WHERE T.ID_SITUACAO = ? \n"+
+                     "ORDER BY t.DATA_ABERTURA DESC";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, tic.getSituacao());
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
     public ResultSet listarChamadosClientePorTitulo(Usuario usu, Ticket tic) {
         String sql = "SELECT t.ID, t.TITULO, t.DESCRICAO, ds.DESCRICAO AS SITUACAO, dnp.DESCRICAO AS NIVEL, u.NOME AS TECNICO, t.DATA_ABERTURA, t.DATA_FECHAMENTO \n" +
                      "FROM ticket t \n" +
@@ -124,6 +144,26 @@ public class TicketDAO {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setInt(1, usu.getId());
             stmt.setString(2, "%"+tic.getTitulo()+"%");
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
+    public ResultSet listarChamadosAdmPorTitulo(Usuario usu, Ticket tic) {
+        String sql = "SELECT t.ID, t.TITULO, t.DESCRICAO, ds.DESCRICAO AS SITUACAO, dnp.DESCRICAO AS NIVEL, u.NOME AS TECNICO, t.DATA_ABERTURA, t.DATA_FECHAMENTO \n" +
+                     "FROM ticket t \n" +
+                     " INNER JOIN def_situacao ds ON ds.ID = t.ID_SITUACAO \n" +
+                     " INNER JOIN def_nivel_prioridade dnp ON dnp.ID = t.ID_NIVEL \n" +
+                     " LEFT JOIN usuario u ON u.ID = t.ID_TECNICO \n" +
+                     "WHERE T.TITULO LIKE ? \n"+
+                     "ORDER BY t.DATA_ABERTURA DESC";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, "%"+tic.getTitulo()+"%");
             ResultSet rs = stmt.executeQuery();
             
             return(rs);
