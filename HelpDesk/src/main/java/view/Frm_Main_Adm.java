@@ -14,6 +14,8 @@ import view.*;
  */
 public class Frm_Main_Adm extends javax.swing.JFrame {
 
+    private String ID;
+
     /**
      * Creates new form Frm_Main
      */
@@ -23,7 +25,7 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
     
     public Frm_Main_Adm(String res) {
         initComponents();
-        final int ID = Integer.parseInt(res);
+        ID = res;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,7 +153,9 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.out.println("MEU ID: "+ID);
+        UC_Meu_Perfil f = new UC_Meu_Perfil(this.ID);
+        jDesktopPane1.add(f);
+        f.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**

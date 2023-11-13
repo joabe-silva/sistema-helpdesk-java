@@ -5,13 +5,11 @@
 package view;
 
 import view.*;
-import classes.Ticket;
-import classes.TicketNivelPrioridade;
-import dao.TicketDAO;
+
+import classes.Usuario;
+import dao.UsuarioDAO;
 import java.sql.ResultSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,8 +25,25 @@ public class UC_Meu_Perfil extends javax.swing.JInternalFrame {
         initComponents();
     }
     
-    public UC_Meu_Perfil(ResultSet res) {
+    public UC_Meu_Perfil(String id) {
         initComponents();
+        
+        Usuario usu = new Usuario();
+        UsuarioDAO ud = new UsuarioDAO();
+            
+        try {
+            usu.setId(Integer.parseInt(id));
+            ResultSet res = ud.usuario(usu);
+            
+            if(res.next()) {
+                Txt_Nome.setText(res.getString("NOME"));
+                Txt_Usuario.setText(res.getString("USUARIO"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: "+e.getMessage());
+        }
     }
 
     /**
@@ -52,7 +67,11 @@ public class UC_Meu_Perfil extends javax.swing.JInternalFrame {
         setTitle("Meu Perfil");
         setToolTipText("");
 
+        Txt_Nome.setEditable(false);
+
         Lbl_Nome.setText("Nome");
+
+        Txt_Usuario.setEditable(false);
 
         Lbl_Usuario.setText("Usuário");
 
@@ -80,7 +99,7 @@ public class UC_Meu_Perfil extends javax.swing.JInternalFrame {
                 .addComponent(Lbl_Usuario)
                 .addGap(3, 3, 3)
                 .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         Txt_Nome.getAccessibleContext().setAccessibleName("Txt_Titulo");

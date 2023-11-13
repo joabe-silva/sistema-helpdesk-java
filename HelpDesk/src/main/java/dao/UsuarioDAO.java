@@ -42,4 +42,18 @@ public class UsuarioDAO {
             return null;
         }
     }
+    
+    public ResultSet usuario(Usuario usu) {
+        String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL FROM usuario u WHERE u.ID = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, usu.getId());
+            ResultSet rs = stmt.executeQuery();
+            
+            return(rs);
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
 }
