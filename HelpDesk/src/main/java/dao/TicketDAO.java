@@ -52,6 +52,30 @@ public class TicketDAO {
         }
     }
     
+    public List<TicketNivelPrioridade> listarSituacao() {
+        String sql = "SELECT * FROM def_situacao";
+      
+        try {
+            List<TicketNivelPrioridade> niveis = new ArrayList<>();
+            
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                TicketNivelPrioridade np = new TicketNivelPrioridade();
+                
+                np.setId(rs.getInt("ID"));
+                np.setDescricao(rs.getString("DESCRICAO"));
+                
+                niveis.add(np);
+            }
+            
+            return niveis;
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            return null;
+        }
+    }
+    
     public void abrirChamado(Ticket ticket) {
         String sql = "INSERT INTO ticket(ID_CLIENTE, ID_NIVEL, ID_SITUACAO, TITULO, DESCRICAO) VALUES(?, ?, ?, ?, ?)";
         try {

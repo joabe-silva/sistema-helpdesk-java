@@ -4,6 +4,9 @@
  */
 package view;
 
+import classes.TicketNivelPrioridade;
+import dao.TicketDAO;
+import java.util.List;
 import view.*;
 
 /**
@@ -17,10 +20,26 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
      */
     public UC_Acompanhar_Atendimento() {
         initComponents();
+        
+        TicketDAO td = new TicketDAO();
+        List<TicketNivelPrioridade> situacao = td.listarSituacao();
+        
+        Cbx_Situacao.removeAll();
+        for(TicketNivelPrioridade s: situacao ) {
+           Cbx_Situacao.addItem(s);
+        }
     }
     
     public UC_Acompanhar_Atendimento(String id) {
         initComponents();
+        
+        TicketDAO td = new TicketDAO();
+        List<TicketNivelPrioridade> situacao  = td.listarSituacao();
+        
+        Cbx_Situacao.removeAll();
+        for(TicketNivelPrioridade s: situacao) {
+           Cbx_Situacao.addItem(s);
+        }
     }
 
     /**
@@ -35,7 +54,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
         JP_Filtros = new javax.swing.JPanel();
         Txt_Pesquisa = new javax.swing.JTextField();
         Btn_Pesquisa = new javax.swing.JButton();
-        Cbx_Situacao = new javax.swing.JComboBox<>();
+        Cbx_Situacao = new javax.swing.JComboBox();
         Lbl_Situacao = new javax.swing.JLabel();
         Lbl_Descricao = new javax.swing.JLabel();
         Txt_Data_Inicio = new javax.swing.JFormattedTextField();
@@ -59,8 +78,6 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
                 Btn_PesquisaActionPerformed(evt);
             }
         });
-
-        Cbx_Situacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         Lbl_Situacao.setText("Situação");
 
@@ -221,7 +238,7 @@ public class UC_Acompanhar_Atendimento extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Abrir;
     private javax.swing.JButton Btn_Pesquisa;
-    private javax.swing.JComboBox<String> Cbx_Situacao;
+    private javax.swing.JComboBox Cbx_Situacao;
     private javax.swing.JPanel JP_Atendimentos;
     private javax.swing.JPanel JP_Filtros;
     private javax.swing.JLabel Lbl_Data_Final;
