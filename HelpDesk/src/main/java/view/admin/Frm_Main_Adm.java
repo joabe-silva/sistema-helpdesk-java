@@ -128,6 +128,11 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
         jMenu3.add(jMenuItem5);
 
         jMenuItem6.setText("Niveis de prioridade");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem6);
 
         jMenuItem7.setText("Situações");
@@ -179,6 +184,12 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
         jDesktopPane1.add(f);
         f.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        UC_Cadastro_Nivel_Adm f = new UC_Cadastro_Nivel_Adm(this.ID);
+        jDesktopPane1.add(f);
+        f.show();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments

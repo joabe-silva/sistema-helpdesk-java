@@ -4,9 +4,11 @@ C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\classes\Ticket.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\view\admin\Frm_Main_Adm.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\dao\TicketDAO.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\classes\Usuario.java
+C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\dao\NivelPrioridadeDAO.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\dao\UsuarioDAO.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\classes\TicketNivelPrioridade.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\view\UC_Meu_Perfil.java
+C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\view\admin\UC_Cadastro_Nivel_Adm.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\view\admin\UC_Cadastro_Usuario_Adm.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\view\admin\UC_Acompanhar_Atendimento_Adm.java
 C:\Projetos\sistema-helpdesk-java\HelpDesk\src\main\java\conexao\Conexao.java

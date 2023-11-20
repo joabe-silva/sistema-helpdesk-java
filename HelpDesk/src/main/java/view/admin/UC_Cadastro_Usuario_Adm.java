@@ -459,25 +459,29 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
         Usuario u = new Usuario();
         UsuarioDAO ud = new UsuarioDAO();
         
-        int res = JOptionPane.showConfirmDialog(null, "Deseja alterar os dados desse usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION);
-        if (res == JOptionPane.YES_OPTION) {
-            String li = String.valueOf(Tb_Usuarios.getValueAt(Tb_Usuarios.getSelectedRow(), Tb_Usuarios.getSelectedColumn()));
-            
-            TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Cadastro.getSelectedItem();
-            TicketNivelPrioridade p = (TicketNivelPrioridade) Cbx_Perfil_Cadastro.getSelectedItem();
-        
-            u.setId(Integer.parseInt(li));
-            u.setNome(Txt_Nome_Cadastro.getText());
-            u.setUsuario(Txt_Usuario_Cadastro.getText());
-            u.setSenha(Txt_Senha_Cadastro.getText());
-            u.setPerfil(p.getId());
-            u.setSituacao(s.getId());
-            
-            ud.alteraUsuario(u);
-            
-            Txt_Nome_Cadastro.setText("");
-            Txt_Usuario_Cadastro.setText("");
-            Txt_Senha_Cadastro.setText("");
+        if(Txt_Nome_Cadastro.getText().isEmpty() || Txt_Usuario_Cadastro.getText().isEmpty() || Txt_Senha_Cadastro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Favor selecione e carregue em tela um usuário!");
+        } else {
+            int res = JOptionPane.showConfirmDialog(null, "Deseja alterar os dados desse usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION);
+            if (res == JOptionPane.YES_OPTION) {
+                String li = String.valueOf(Tb_Usuarios.getValueAt(Tb_Usuarios.getSelectedRow(), Tb_Usuarios.getSelectedColumn()));
+
+                TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Cadastro.getSelectedItem();
+                TicketNivelPrioridade p = (TicketNivelPrioridade) Cbx_Perfil_Cadastro.getSelectedItem();
+
+                u.setId(Integer.parseInt(li));
+                u.setNome(Txt_Nome_Cadastro.getText());
+                u.setUsuario(Txt_Usuario_Cadastro.getText());
+                u.setSenha(Txt_Senha_Cadastro.getText());
+                u.setPerfil(p.getId());
+                u.setSituacao(s.getId());
+
+                ud.alteraUsuario(u);
+
+                Txt_Nome_Cadastro.setText("");
+                Txt_Usuario_Cadastro.setText("");
+                Txt_Senha_Cadastro.setText("");
+            } 
         } 
     }//GEN-LAST:event_Btn_AlterarActionPerformed
 
