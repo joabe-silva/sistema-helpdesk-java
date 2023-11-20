@@ -50,7 +50,6 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -134,9 +133,6 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem6);
-
-        jMenuItem7.setText("Situações");
-        jMenu3.add(jMenuItem7);
 
         jMenuBar1.add(jMenu3);
 
@@ -241,7 +237,6 @@ public class Frm_Main_Adm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

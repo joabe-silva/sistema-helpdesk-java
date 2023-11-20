@@ -32,6 +32,7 @@ view\admin\Frm_Main_Adm$4.class
 view\admin\UC_Cadastro_Usuario_Adm$5.class
 view\cliente\Frm_Main_Cliente$4.class
 view\admin\UC_Cadastro_Nivel_Adm$7.class
+view\admin\UC_Acompanhar_Atendimento_Adm$4.class
 view\admin\UC_Cadastro_Nivel_Adm$3.class
 dao\TicketDAO.class
 view\admin\UC_Cadastro_Nivel_Adm.class
