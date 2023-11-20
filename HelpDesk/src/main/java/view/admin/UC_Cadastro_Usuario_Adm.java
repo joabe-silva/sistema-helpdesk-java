@@ -13,8 +13,10 @@ import dao.UsuarioDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.*;
 
@@ -102,7 +104,6 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
         Lbl_Usuario_Cadastro = new javax.swing.JLabel();
         Txt_Usuario_Cadastro = new javax.swing.JTextField();
         Lbl_Senha_Cadastro = new javax.swing.JLabel();
-        Txt_Senha_Cadastro = new javax.swing.JTextField();
         Lbl_Situacao_Cadastro = new javax.swing.JLabel();
         Cbx_Situacao_Cadastro = new javax.swing.JComboBox();
         Lbl_Perfil_Cadastro = new javax.swing.JLabel();
@@ -111,10 +112,10 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
         Btn_Alterar = new javax.swing.JButton();
         Btn_Excluir = new javax.swing.JButton();
         Btn_Limpar_Campos = new javax.swing.JButton();
+        Txt_Senha_Cadastro = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
-        setResizable(true);
         setTitle("Cadastro de Usuários");
 
         JP_Filtros.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
@@ -175,17 +176,17 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
 
         Tb_Usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Usuário", "Situação"
+                "ID", "Usuário", "Perfil", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -270,6 +271,7 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Txt_Senha_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Btn_Limpar_Campos, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
@@ -279,16 +281,15 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Btn_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(Cbx_Perfil_Cadastro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Txt_Senha_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Txt_Usuario_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Txt_Nome_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Cbx_Situacao_Cadastro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Lbl_Senha_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Lbl_Usuario_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Lbl_Nome_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Lbl_Situacao_Cadastro, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(Lbl_Situacao_Cadastro, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Lbl_Senha_Cadastro, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(21, 21, 21))))
         );
@@ -304,9 +305,9 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
                 .addComponent(Txt_Usuario_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Lbl_Senha_Cadastro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Txt_Senha_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Txt_Senha_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(Lbl_Perfil_Cadastro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Cbx_Perfil_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,7 +376,7 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
             model.setRowCount(0);
             try {
                 while(rs.next()) {
-                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("USUARIO"), rs.getString("SITUACAO")});
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("USUARIO"), rs.getString("PERFIL"), rs.getString("SITUACAO")});
                 }
             } catch (SQLException e) {
                 System.out.println("Erro: "+e.getMessage());
@@ -390,7 +391,7 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
             model.setRowCount(0);
             try {
                 while(rs.next()) {
-                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("USUARIO"), rs.getString("SITUACAO")});
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("USUARIO"), rs.getString("PERFIl"), rs.getString("SITUACAO")});
                 }
             } catch (SQLException e) {
                 System.out.println("Erro: "+e.getMessage());
@@ -401,7 +402,32 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Btn_PesquisaActionPerformed
 
     private void Btn_Abrir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Abrir1ActionPerformed
-        // TODO add your handling code here:
+        Usuario u = new Usuario();
+        UsuarioDAO ud = new UsuarioDAO();
+        
+        String li = String.valueOf(Tb_Usuarios.getValueAt(Tb_Usuarios.getSelectedRow(), Tb_Usuarios.getSelectedColumn()));
+        u.setId(Integer.parseInt(li));
+        
+        try {
+            ResultSet rs = ud.usuario(u);
+            if(rs.next()) {
+                Txt_Nome_Cadastro.setText(rs.getString("NOME"));
+                Txt_Usuario_Cadastro.setText(rs.getString("USUARIO"));
+                Txt_Senha_Cadastro.setText(rs.getString("SENHA"));
+                
+                TicketNivelPrioridade p = (TicketNivelPrioridade) Cbx_Perfil_Cadastro.getSelectedItem();
+                p.setId(Integer.parseInt(rs.getString("ID_PERFIL")));
+                p.setDescricao(rs.getString("PERFIL"));
+                Cbx_Perfil_Cadastro.setSelectedItem(p);
+                
+                TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Cadastro.getSelectedItem();
+                s.setId(Integer.parseInt(rs.getString("ID_SITUACAO")));
+                s.setDescricao(rs.getString("SITUACAO"));
+                Cbx_Situacao_Cadastro.setSelectedItem(s);
+            }    
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar usuario: "+e.getMessage());
+        }
     }//GEN-LAST:event_Btn_Abrir1ActionPerformed
 
     private void Btn_CadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CadastroActionPerformed
@@ -415,19 +441,60 @@ public class UC_Cadastro_Usuario_Adm extends javax.swing.JInternalFrame {
         u.setNome(Txt_Nome_Cadastro.getText());
         u.setUsuario(Txt_Usuario_Cadastro.getText());
         u.setSenha(Txt_Senha_Cadastro.getText());
-        u.setSituacao(s.getId());
         u.setPerfil(p.getId());
+        u.setSituacao(s.getId());
         
-        ud.cadastroUsuario(u);
-        
+        if(Txt_Nome_Cadastro.getText().isEmpty() || Txt_Usuario_Cadastro.getText().isEmpty() || Txt_Senha_Cadastro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Favor preencha todos os campos!");
+        } else {
+            ud.cadastroUsuario(u);
+            
+            Txt_Nome_Cadastro.setText("");
+            Txt_Usuario_Cadastro.setText("");
+            Txt_Senha_Cadastro.setText("");
+        } 
     }//GEN-LAST:event_Btn_CadastroActionPerformed
 
     private void Btn_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AlterarActionPerformed
-        // TODO add your handling code here:
+        Usuario u = new Usuario();
+        UsuarioDAO ud = new UsuarioDAO();
+        
+        int res = JOptionPane.showConfirmDialog(null, "Deseja alterar os dados desse usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION);
+        if (res == JOptionPane.YES_OPTION) {
+            String li = String.valueOf(Tb_Usuarios.getValueAt(Tb_Usuarios.getSelectedRow(), Tb_Usuarios.getSelectedColumn()));
+            
+            TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Cadastro.getSelectedItem();
+            TicketNivelPrioridade p = (TicketNivelPrioridade) Cbx_Perfil_Cadastro.getSelectedItem();
+        
+            u.setId(Integer.parseInt(li));
+            u.setNome(Txt_Nome_Cadastro.getText());
+            u.setUsuario(Txt_Usuario_Cadastro.getText());
+            u.setSenha(Txt_Senha_Cadastro.getText());
+            u.setPerfil(p.getId());
+            u.setSituacao(s.getId());
+            
+            ud.alteraUsuario(u);
+            
+            Txt_Nome_Cadastro.setText("");
+            Txt_Usuario_Cadastro.setText("");
+            Txt_Senha_Cadastro.setText("");
+        } 
     }//GEN-LAST:event_Btn_AlterarActionPerformed
 
     private void Btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ExcluirActionPerformed
-        // TODO add your handling code here:
+        Usuario u = new Usuario();
+        UsuarioDAO ud = new UsuarioDAO();
+        
+        int res = JOptionPane.showConfirmDialog(null, "Deseja deletar o usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION);
+        if (res == JOptionPane.YES_OPTION) {
+            String li = String.valueOf(Tb_Usuarios.getValueAt(Tb_Usuarios.getSelectedRow(), Tb_Usuarios.getSelectedColumn()));
+            u.setId(Integer.parseInt(li));
+            ud.deletaUsuario(u);
+
+            Txt_Nome_Cadastro.setText("");
+            Txt_Usuario_Cadastro.setText("");
+            Txt_Senha_Cadastro.setText("");
+        } 
     }//GEN-LAST:event_Btn_ExcluirActionPerformed
 
     private void Btn_Limpar_CamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Limpar_CamposActionPerformed

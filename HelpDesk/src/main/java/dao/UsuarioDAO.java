@@ -92,7 +92,11 @@ public class UsuarioDAO {
     }
     
     public ResultSet usuario(Usuario usu) {
-        String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL FROM usuario u WHERE u.ID = ?";
+        String sql = "SELECT u.ID, u.USUARIO, u.SENHA, u.NOME, u.PERFIL AS ID_PERFIL, dup.DESCRICAO AS PERFIL, u.SITUACAO AS ID_SITUACAO, dus.DESCRICAO AS SITUACAO \n" +
+                     "FROM usuario u \n" +
+                     "INNER JOIN def_usuario_perfil dup ON dup.ID = u.PERFIL  \n" +
+                     "INNER JOIN def_usuario_situacao dus ON dus.ID = u.SITUACAO \n" +
+                     "WHERE u.ID = ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setInt(1, usu.getId());
@@ -137,20 +141,45 @@ public class UsuarioDAO {
         }
     }
     
-    public ResultSet cadastroUsuario(Usuario usu) {
-        String sql = "INSERT INTO usuario(USUARIO, SENHA, NOME, PERFIL) VALUES (?, ?, ?, ?)";
+    public void cadastroUsuario(Usuario usu) {
+        String sql = "INSERT INTO usuario(USUARIO, SENHA, NOME, PERFIL, SITUACAO) VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             stmt.setString(1, usu.getUsuario());
             stmt.setString(2, usu.getSenha());
             stmt.setString(3, usu.getNome());
             stmt.setInt(4, usu.getPerfil());
-            ResultSet rs = stmt.executeQuery();
-            
-            return(rs);
+            stmt.setInt(5, usu.getSituacao());
+            stmt.execute();
         } catch(Exception e){
-            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
-            return null;
+            System.out.print("Erro de SQL ao cadastrar usuário: "+e.getMessage());
+        }
+    }
+    
+    public void alteraUsuario(Usuario usu) {
+        String sql = "UPDATE usuario SET USUARIO = ?, SENHA = ?, NOME = ?, PERFIL = ?, SITUACAO = ? WHERE ID = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setString(1, usu.getUsuario());
+            stmt.setString(2, usu.getSenha());
+            stmt.setString(3, usu.getNome());
+            stmt.setInt(4, usu.getPerfil());
+            stmt.setInt(5, usu.getSituacao());
+            stmt.setInt(6, usu.getId());
+            stmt.execute();
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao altera usuário: "+e.getMessage());
+        }
+    }
+    
+    public void deletaUsuario(Usuario usu) {
+        String sql = "DELETE FROM usuario WHERE ID = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, usu.getId());
+            stmt.execute();
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao deletar usuário: "+e.getMessage());
         }
     }
 }

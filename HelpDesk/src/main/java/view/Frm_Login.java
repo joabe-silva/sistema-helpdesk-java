@@ -8,8 +8,12 @@ import view.cliente.Frm_Main_Cliente;
 import view.admin.Frm_Main_Adm;
 import classes.Usuario;
 import dao.UsuarioDAO;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -41,12 +45,13 @@ public class Frm_Login extends javax.swing.JFrame {
         Lbl_Usuario = new javax.swing.JLabel();
         Txt_Usuario = new javax.swing.JTextField();
         Lbl_Senha = new javax.swing.JLabel();
-        Txt_Senha = new javax.swing.JTextField();
         Btn_Login = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        Txt_Senha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Helpdesk");
+        setResizable(false);
 
         Lbl_Usuario.setText("Usuário");
 
@@ -69,17 +74,16 @@ public class Frm_Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Btn_Login)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Lbl_Senha)
-                                .addComponent(Lbl_Usuario)
-                                .addComponent(Txt_Usuario)
-                                .addComponent(Txt_Senha, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(111, 111, 111)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(Btn_Login)
+                            .addComponent(Lbl_Senha, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Lbl_Usuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txt_Usuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txt_Senha, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -93,7 +97,7 @@ public class Frm_Login extends javax.swing.JFrame {
                 .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(Lbl_Senha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Txt_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(Btn_Login)
@@ -104,12 +108,12 @@ public class Frm_Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -123,39 +127,63 @@ public class Frm_Login extends javax.swing.JFrame {
             Usuario usu = new Usuario();
             UsuarioDAO ud = new UsuarioDAO();
             
-            usu.setUsuario(Txt_Usuario.getText());
-            usu.setSenha(Txt_Senha.getText());
+           
             
+            MessageDigest algorithm;
             try {
-                ResultSet res = ud.login(usu);
-                if(res.next()) {
-                    
-                    if(res.getObject("SITUACAO").equals(1)) {
-          
-                       if(res.getObject("PERFIL").equals(1)) {
-                    
-                            Frm_Main_Adm f = new Frm_Main_Adm(res.getString("ID"));
-                            f.setVisible(true);
-                            this.dispose();
-                    
-                        } else {
-
-                            Frm_Main_Cliente f = new Frm_Main_Cliente(res.getString("ID"));
-                            f.setVisible(true);
-                            this.dispose();
-
-                        }
-                       
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Usuário bloqueado! Contate o adm do sistema.");
-                    }
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
+                /*
+                String senha = Txt_Senha.getText().toString();
+                algorithm = MessageDigest.getInstance("SHA-256");
+                byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+                
+                StringBuilder sb = new StringBuilder(); 
+                for (byte b : messageDigest) {
+                    sb.append(String.format("%02X", 0xFF & b));
                 }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro: "+e.getMessage());
+                
+                String senhaHex = sb.toString();
+                */
+                
+                usu.setUsuario(Txt_Usuario.getText());
+                usu.setSenha(Txt_Senha.getText());
+                
+                //try {
+                    ResultSet res = ud.login(usu);
+                    if(res.next()) {
+
+                        if(res.getObject("SITUACAO").equals(1)) {
+
+                           if(res.getObject("PERFIL").equals(1)) {
+
+                                Frm_Main_Adm f = new Frm_Main_Adm(res.getString("ID"));
+                                f.setVisible(true);
+                                this.dispose();
+
+                            } else {
+
+                                Frm_Main_Cliente f = new Frm_Main_Cliente(res.getString("ID"));
+                                f.setVisible(true);
+                                this.dispose();
+
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Usuário bloqueado! Contate o adm do sistema.");
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Erro: "+e.getMessage());
+                }
+             /*   
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Frm_Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            */
         }        
     }//GEN-LAST:event_Btn_LoginActionPerformed
 
