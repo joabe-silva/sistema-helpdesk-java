@@ -9,9 +9,11 @@ import view.*;
 import classes.TicketNivelPrioridade;
 import classes.Usuario;
 import dao.TicketDAO;
+import dao.UsuarioDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +40,27 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         for(TicketNivelPrioridade s: situacao ) {
            Cbx_Situacao.addItem(s);
         }
+        
+        Cbx_Situacao_Detalhes.removeAll();
+        for(TicketNivelPrioridade s: situacao ) {
+           Cbx_Situacao_Detalhes.addItem(s);
+        }
+        
+        List<TicketNivelPrioridade> niveis = td.listarNiveis();
+        
+        Cbx_Nivel_Detalhes.removeAll();
+        for(TicketNivelPrioridade n: niveis ) {
+           Cbx_Nivel_Detalhes.addItem(n);
+        }
+        
+        UsuarioDAO ud = new UsuarioDAO();
+        List<Usuario> usuarios = ud.listaUsuariosAdm();
+        
+        Cbx_Analista_Detalhes.removeAll();
+        for(Usuario u: usuarios ) {
+           Cbx_Analista_Detalhes.addItem(u);
+        }
+        
     }
     
     public UC_Acompanhar_Atendimento_Adm(String id) {
@@ -51,6 +74,26 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         Cbx_Situacao.removeAll();
         for(TicketNivelPrioridade s: situacao) {
            Cbx_Situacao.addItem(s);
+        }
+        
+        Cbx_Situacao_Detalhes.removeAll();
+        for(TicketNivelPrioridade s: situacao ) {
+           Cbx_Situacao_Detalhes.addItem(s);
+        }
+        
+        List<TicketNivelPrioridade> niveis = td.listarNiveis();
+        
+        Cbx_Nivel_Detalhes.removeAll();
+        for(TicketNivelPrioridade n: niveis ) {
+           Cbx_Nivel_Detalhes.addItem(n);
+        }
+        
+        UsuarioDAO ud = new UsuarioDAO();
+        List<Usuario> usuarios = ud.listaUsuariosAdm();
+        
+        Cbx_Analista_Detalhes.removeAll();
+        for(Usuario u: usuarios ) {
+           Cbx_Analista_Detalhes.addItem(u);
         }
     }
 
@@ -76,7 +119,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         JP_Atendimentos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tb_Tickets = new javax.swing.JTable();
-        Btn_Abrir = new javax.swing.JButton();
+        Btn_Detalhar_Chamado = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         Lbl_Descricao1 = new javax.swing.JLabel();
         TxtArea_Descricao = new javax.swing.JScrollPane();
@@ -87,16 +130,17 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         Btn_Abrir1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Lbl_Titulo1 = new javax.swing.JLabel();
-        Txt_Titulo1 = new javax.swing.JTextField();
+        Txt_Titulo_Detalhes = new javax.swing.JTextField();
         Lbl_Descricao2 = new javax.swing.JLabel();
-        TxtArea_Descricao1 = new javax.swing.JScrollPane();
-        Txt_Area_Descricao1 = new javax.swing.JTextArea();
         Lbl_Nivel3 = new javax.swing.JLabel();
-        Cbx_Nivel3 = new javax.swing.JComboBox();
+        Cbx_Nivel_Detalhes = new javax.swing.JComboBox();
         Lbl_Nivel4 = new javax.swing.JLabel();
-        Cbx_Nivel4 = new javax.swing.JComboBox();
+        Cbx_Situacao_Detalhes = new javax.swing.JComboBox();
         Lbl_Nivel5 = new javax.swing.JLabel();
-        Cbx_Nivel5 = new javax.swing.JComboBox();
+        Cbx_Analista_Detalhes = new javax.swing.JComboBox();
+        Btn_Salvar_Detalhes = new javax.swing.JButton();
+        TxtArea_Descricao1 = new javax.swing.JScrollPane();
+        Txt_Area_Descricao_Detalhes = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
@@ -137,21 +181,25 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
             JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_FiltrosLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Lbl_Data_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Txt_Data_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txt_Data_Final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Lbl_Data_Final))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Lbl_Situacao)
-                    .addComponent(Cbx_Situacao, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                    .addComponent(Lbl_Data_Inicio)
+                    .addComponent(Txt_Data_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JP_FiltrosLayout.createSequentialGroup()
-                        .addComponent(Txt_Pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(Lbl_Data_Final)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JP_FiltrosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Txt_Data_Final, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
+                .addGroup(JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Cbx_Situacao, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Lbl_Situacao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(JP_FiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JP_FiltrosLayout.createSequentialGroup()
+                        .addComponent(Txt_Pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Btn_Pesquisa))
                     .addComponent(Lbl_Descricao))
@@ -190,17 +238,17 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
 
         Tb_Tickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Ticket", "Titulo", "Data", "Técnico", "Situação"
+                "Ticket", "Titulo", "Data", "Técnico", "Nivel", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -209,10 +257,10 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(Tb_Tickets);
 
-        Btn_Abrir.setText("Abrir");
-        Btn_Abrir.addActionListener(new java.awt.event.ActionListener() {
+        Btn_Detalhar_Chamado.setText("Detalhes >");
+        Btn_Detalhar_Chamado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_AbrirActionPerformed(evt);
+                Btn_Detalhar_ChamadoActionPerformed(evt);
             }
         });
 
@@ -221,12 +269,12 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
         JP_AtendimentosLayout.setHorizontalGroup(
             JP_AtendimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JP_AtendimentosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Btn_Abrir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(JP_AtendimentosLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JP_AtendimentosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Btn_Detalhar_Chamado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         JP_AtendimentosLayout.setVerticalGroup(
             JP_AtendimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,11 +282,11 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Btn_Abrir)
+                .addComponent(Btn_Detalhar_Chamado)
                 .addContainerGap())
         );
 
-        Btn_Abrir.getAccessibleContext().setAccessibleName("Btn_Abrir");
+        Btn_Detalhar_Chamado.getAccessibleContext().setAccessibleName("Btn_Abrir");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Comentarios do atendimento"));
 
@@ -311,15 +359,22 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
 
         Lbl_Descricao2.setText("Descrição do atendimento");
 
-        Txt_Area_Descricao1.setColumns(20);
-        Txt_Area_Descricao1.setRows(5);
-        TxtArea_Descricao1.setViewportView(Txt_Area_Descricao1);
-
         Lbl_Nivel3.setText("Nivel de prioridade:");
 
         Lbl_Nivel4.setText("Situação:");
 
         Lbl_Nivel5.setText("Analista:");
+
+        Btn_Salvar_Detalhes.setText("Salvar");
+        Btn_Salvar_Detalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Salvar_DetalhesActionPerformed(evt);
+            }
+        });
+
+        Txt_Area_Descricao_Detalhes.setColumns(20);
+        Txt_Area_Descricao_Detalhes.setRows(5);
+        TxtArea_Descricao1.setViewportView(Txt_Area_Descricao_Detalhes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -327,24 +382,28 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Lbl_Titulo1)
-                    .addComponent(Lbl_Descricao2)
-                    .addComponent(TxtArea_Descricao1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtArea_Descricao1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Lbl_Nivel5)
-                        .addGap(70, 70, 70)
-                        .addComponent(Cbx_Nivel5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Lbl_Nivel3)
-                            .addComponent(Lbl_Nivel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Cbx_Nivel3, 0, 171, Short.MAX_VALUE)
-                            .addComponent(Cbx_Nivel4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(Txt_Titulo1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Lbl_Titulo1)
+                            .addComponent(Lbl_Descricao2)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(Lbl_Nivel5)
+                                .addGap(70, 70, 70)
+                                .addComponent(Cbx_Analista_Detalhes, 0, 171, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Lbl_Nivel3)
+                                    .addComponent(Lbl_Nivel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Cbx_Nivel_Detalhes, 0, 171, Short.MAX_VALUE)
+                                    .addComponent(Cbx_Situacao_Detalhes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(Txt_Titulo_Detalhes))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Btn_Salvar_Detalhes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,24 +411,26 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(Lbl_Titulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Txt_Titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Txt_Titulo_Detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Lbl_Descricao2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TxtArea_Descricao1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TxtArea_Descricao1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lbl_Nivel3)
-                    .addComponent(Cbx_Nivel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Cbx_Nivel_Detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lbl_Nivel4)
-                    .addComponent(Cbx_Nivel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Cbx_Situacao_Detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Lbl_Nivel5)
-                    .addComponent(Cbx_Nivel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                    .addComponent(Cbx_Analista_Detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(Btn_Salvar_Detalhes)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -383,7 +444,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
                     .addComponent(JP_Atendimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -395,7 +456,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(JP_Filtros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17)
@@ -423,7 +484,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
             model.setRowCount(0);
             try {
                 while(rs.next()) {
-                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("SITUACAO")});
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("NIVEL"), rs.getString("SITUACAO")});
                 }
             } catch (SQLException e) {
                 System.out.println("Erro: "+e.getMessage());;
@@ -439,7 +500,7 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
             model.setRowCount(0);
             try {
                 while(rs.next()) {
-                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("SITUACAO")});
+                    model.addRow(new String[]{ rs.getString("ID"), rs.getString("TITULO"), rs.getString("DATA_ABERTURA"), rs.getString("TECNICO"), rs.getString("NIVEL"), rs.getString("SITUACAO")});
                 }
             } catch (SQLException e) {
                 System.out.println("Erro: "+e.getMessage());;
@@ -449,23 +510,82 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
     
     }//GEN-LAST:event_Btn_PesquisaActionPerformed
 
-    private void Btn_AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AbrirActionPerformed
-       
-    }//GEN-LAST:event_Btn_AbrirActionPerformed
+    private void Btn_Detalhar_ChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Detalhar_ChamadoActionPerformed
+        Ticket t = new Ticket();
+        TicketDAO td = new TicketDAO();
+        
+        String li = String.valueOf(Tb_Tickets.getValueAt(Tb_Tickets.getSelectedRow(), Tb_Tickets.getSelectedColumn()));
+        t.setId(Integer.parseInt(li));
+        
+        try {
+            ResultSet rs = td.listarChamado(t);
+            if(rs.next()) {
+                Txt_Titulo_Detalhes.setText(rs.getString("TITULO"));
+                Txt_Area_Descricao_Detalhes.setText(rs.getString("DESCRICAO"));
+                
+                TicketNivelPrioridade n = (TicketNivelPrioridade) Cbx_Nivel_Detalhes.getSelectedItem();
+                n.setId(Integer.parseInt(rs.getString("ID_NIVEL")));
+                n.setDescricao(rs.getString("NIVEL"));
+                Cbx_Nivel_Detalhes.setSelectedItem(n);
+                
+                TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Detalhes.getSelectedItem();
+                s.setId(Integer.parseInt(rs.getString("ID_SITUACAO")));
+                s.setDescricao(rs.getString("SITUACAO"));
+                Cbx_Situacao_Detalhes.setSelectedItem(s);
+                
+                Usuario u = (Usuario) Cbx_Analista_Detalhes.getSelectedItem();
+                u.setId(Integer.parseInt(rs.getString("ID_TECNICO")));
+                u.setUsuario(rs.getString("TECNICO"));
+                Cbx_Analista_Detalhes.setSelectedItem(u);
+            }    
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar usuario: "+e.getMessage());
+        }
+    }//GEN-LAST:event_Btn_Detalhar_ChamadoActionPerformed
 
     private void Btn_Abrir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Abrir1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Btn_Abrir1ActionPerformed
 
+    private void Btn_Salvar_DetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Salvar_DetalhesActionPerformed
+        
+        Ticket t = new Ticket();
+        TicketDAO td = new TicketDAO();
+        
+        try {
+            String li = String.valueOf(Tb_Tickets.getValueAt(Tb_Tickets.getSelectedRow(), Tb_Tickets.getSelectedColumn()));
+        
+            ResultSet rs = td.listarChamado(t);
+            if(rs.next()) {
+               
+                TicketNivelPrioridade n = (TicketNivelPrioridade) Cbx_Nivel_Detalhes.getSelectedItem();
+                TicketNivelPrioridade s = (TicketNivelPrioridade) Cbx_Situacao_Detalhes.getSelectedItem();
+                Usuario u = (Usuario) Cbx_Analista_Detalhes.getSelectedItem();
+                
+                t.setId(Integer.parseInt(li));
+                t.setTitulo(Txt_Titulo_Detalhes.getText());
+                t.setDescricao( Txt_Area_Descricao_Detalhes.getText());
+                t.setNivel(n.getId());
+                t.setSituacao(s.getId());
+                t.setTecnico(u.getId());
+                
+                td.alteraChamado(t);
+            }    
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar usuario: "+e.getMessage());
+        }
+    }//GEN-LAST:event_Btn_Salvar_DetalhesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_Abrir;
     private javax.swing.JButton Btn_Abrir1;
+    private javax.swing.JButton Btn_Detalhar_Chamado;
     private javax.swing.JButton Btn_Pesquisa;
-    private javax.swing.JComboBox Cbx_Nivel3;
-    private javax.swing.JComboBox Cbx_Nivel4;
-    private javax.swing.JComboBox Cbx_Nivel5;
+    private javax.swing.JButton Btn_Salvar_Detalhes;
+    private javax.swing.JComboBox Cbx_Analista_Detalhes;
+    private javax.swing.JComboBox Cbx_Nivel_Detalhes;
     private javax.swing.JComboBox Cbx_Situacao;
+    private javax.swing.JComboBox Cbx_Situacao_Detalhes;
     private javax.swing.JPanel JP_Atendimentos;
     private javax.swing.JPanel JP_Filtros;
     private javax.swing.JLabel Lbl_Data_Final;
@@ -482,11 +602,11 @@ public class UC_Acompanhar_Atendimento_Adm extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane TxtArea_Descricao;
     private javax.swing.JScrollPane TxtArea_Descricao1;
     private javax.swing.JTextArea Txt_Area_Descricao;
-    private javax.swing.JTextArea Txt_Area_Descricao1;
+    private javax.swing.JTextArea Txt_Area_Descricao_Detalhes;
     private javax.swing.JFormattedTextField Txt_Data_Final;
     private javax.swing.JFormattedTextField Txt_Data_Inicio;
     private javax.swing.JTextField Txt_Pesquisa;
-    private javax.swing.JTextField Txt_Titulo1;
+    private javax.swing.JTextField Txt_Titulo_Detalhes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

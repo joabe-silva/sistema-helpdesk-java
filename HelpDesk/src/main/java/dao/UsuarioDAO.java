@@ -76,6 +76,30 @@ public class UsuarioDAO {
         }
     }
     
+    public List<Usuario> listaUsuariosAdm() {
+        String sql = "SELECT * FROM usuario u WHERE u.PERFIL = 1";
+      
+        try {
+            List<Usuario> usuario = new ArrayList<>();
+            
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                Usuario u = new Usuario();
+                
+                u.setId(rs.getInt("ID"));
+                u.setUsuario(rs.getString("USUARIO"));
+                
+                usuario.add(u);
+            }
+            
+            return usuario;
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao listar usuários: "+e.getMessage());
+            return null;
+        }
+    }
+    
     public ResultSet login(Usuario usu) {
         String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL, u.SITUACAO FROM usuario u WHERE u.USUARIO = ? AND u.SENHA = ?";
         try {

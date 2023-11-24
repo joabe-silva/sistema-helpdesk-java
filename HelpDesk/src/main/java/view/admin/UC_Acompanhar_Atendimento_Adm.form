@@ -32,7 +32,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -47,7 +47,7 @@
                       <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" pref="536" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="JP_Filtros" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -74,24 +74,30 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="Lbl_Data_Inicio" max="32767" attributes="0"/>
-                      <Component id="Txt_Data_Inicio" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Txt_Data_Final" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="Lbl_Data_Final" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="Lbl_Data_Inicio" min="-2" max="-2" attributes="0"/>
+                      <Component id="Txt_Data_Inicio" min="-2" pref="75" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Lbl_Situacao" min="-2" max="-2" attributes="0"/>
-                      <Component id="Cbx_Situacao" min="-2" pref="114" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="Txt_Pesquisa" min="-2" pref="250" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="Lbl_Data_Final" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Txt_Data_Final" min="-2" pref="74" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Cbx_Situacao" min="-2" pref="114" max="-2" attributes="0"/>
+                      <Component id="Lbl_Situacao" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="Txt_Pesquisa" min="-2" pref="226" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="Btn_Pesquisa" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -220,14 +226,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="Btn_Abrir" min="-2" pref="81" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="625" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="Btn_Detalhar_Chamado" min="-2" pref="154" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -237,7 +243,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="Btn_Abrir" min="-2" max="-2" attributes="0"/>
+                  <Component id="Btn_Detalhar_Chamado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -254,16 +260,22 @@
             <Component class="javax.swing.JTable" name="Tb_Tickets">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
+                  <Table columnCount="6" rowCount="4">
                     <Column editable="false" title="Ticket" type="java.lang.Object"/>
                     <Column editable="false" title="Titulo" type="java.lang.Object"/>
                     <Column editable="false" title="Data" type="java.lang.Object"/>
                     <Column editable="true" title="T&#xe9;cnico" type="java.lang.Object"/>
+                    <Column editable="true" title="Nivel" type="java.lang.Object"/>
                     <Column editable="true" title="Situa&#xe7;&#xe3;o" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -298,15 +310,15 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="Btn_Abrir">
+        <Component class="javax.swing.JButton" name="Btn_Detalhar_Chamado">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Abrir"/>
+            <Property name="text" type="java.lang.String" value="Detalhes &gt;"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Btn_Abrir"/>
           </AccessibilityProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_AbrirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Detalhar_ChamadoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -450,29 +462,35 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="Lbl_Titulo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="Lbl_Descricao2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtArea_Descricao1" alignment="0" pref="286" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="TxtArea_Descricao1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="Lbl_Nivel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="Cbx_Nivel5" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Lbl_Nivel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="Lbl_Nivel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="Cbx_Nivel3" alignment="0" pref="171" max="32767" attributes="0"/>
-                              <Component id="Cbx_Nivel4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="Lbl_Titulo1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="Lbl_Descricao2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="Lbl_Nivel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="Cbx_Analista_Detalhes" pref="171" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="Lbl_Nivel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Lbl_Nivel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="Cbx_Nivel_Detalhes" alignment="0" pref="171" max="32767" attributes="0"/>
+                                      <Component id="Cbx_Situacao_Detalhes" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="Txt_Titulo_Detalhes" alignment="0" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="Txt_Titulo1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Btn_Salvar_Detalhes" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -482,27 +500,29 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Lbl_Titulo1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="Txt_Titulo1" min="-2" max="-2" attributes="0"/>
+                  <Component id="Txt_Titulo_Detalhes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Lbl_Descricao2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="TxtArea_Descricao1" pref="270" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="TxtArea_Descricao1" pref="264" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Lbl_Nivel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Cbx_Nivel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Cbx_Nivel_Detalhes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Lbl_Nivel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Cbx_Nivel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Cbx_Situacao_Detalhes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Lbl_Nivel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Cbx_Nivel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Cbx_Analista_Detalhes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <Component id="Btn_Salvar_Detalhes" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -513,34 +533,19 @@
             <Property name="text" type="java.lang.String" value="Titulo do atendimento"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Txt_Titulo1">
+        <Component class="javax.swing.JTextField" name="Txt_Titulo_Detalhes">
         </Component>
         <Component class="javax.swing.JLabel" name="Lbl_Descricao2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o do atendimento"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="TxtArea_Descricao1">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="Txt_Area_Descricao1">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JLabel" name="Lbl_Nivel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nivel de prioridade:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="Cbx_Nivel3">
+        <Component class="javax.swing.JComboBox" name="Cbx_Nivel_Detalhes">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
@@ -555,7 +560,7 @@
             <Property name="text" type="java.lang.String" value="Situa&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="Cbx_Nivel4">
+        <Component class="javax.swing.JComboBox" name="Cbx_Situacao_Detalhes">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
@@ -570,7 +575,7 @@
             <Property name="text" type="java.lang.String" value="Analista:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="Cbx_Nivel5">
+        <Component class="javax.swing.JComboBox" name="Cbx_Analista_Detalhes">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
@@ -580,6 +585,29 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
           </AuxValues>
         </Component>
+        <Component class="javax.swing.JButton" name="Btn_Salvar_Detalhes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Salvar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_Salvar_DetalhesActionPerformed"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="TxtArea_Descricao1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="Txt_Area_Descricao_Detalhes">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
   </SubComponents>

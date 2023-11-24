@@ -172,18 +172,38 @@ public class TicketDAO {
             return null;
         }
     }
-    
-    public ResultSet listarChamados(Usuario usu) {
-        String sql = "SELECT u.ID, u.USUARIO, u.NOME, u.PERFIL FROM usuario u WHERE u.ID = ?";
+     
+    public ResultSet listarChamado(Ticket t) {
+        String sql = "SELECT t.ID, t.TITULO, t.DESCRICAO, t.ID_SITUACAO, ds.DESCRICAO AS SITUACAO, t.ID_NIVEL, dnp.DESCRICAO AS NIVEL, t.ID_TECNICO,u.NOME AS TECNICO, t.DATA_ABERTURA, t.DATA_FECHAMENTO \n" +
+                     "FROM ticket t \n" +
+                     " INNER JOIN def_situacao ds ON ds.ID = t.ID_SITUACAO \n" +
+                     " INNER JOIN def_nivel_prioridade dnp ON dnp.ID = t.ID_NIVEL \n" +
+                     " LEFT JOIN usuario u ON u.ID = t.ID_TECNICO \n" +
+                     "WHERE T.ID = ?";
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
-            stmt.setInt(1, usu.getId());
+            stmt.setInt(1, t.getId());
             ResultSet rs = stmt.executeQuery();
             
             return(rs);
         } catch(Exception e){
-            System.out.print("Erro de SQL ao abrir ticket: "+e.getMessage());
+            System.out.print("Erro de SQL ao consultar ticket: "+e.getMessage());
             return null;
+        }
+    }
+    
+    public void alteraChamado(Ticket t) {
+        String sql = "UPDATE ticket SET ID_SITUACAO = ?, ID_NIVEL = ?, ID_TECNICO = ? \n" +
+                     "WHERE ID = ?";
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            stmt.setInt(1, t.getSituacao());
+            stmt.setInt(2, t.getNivel());
+            stmt.setInt(3, t.getTecnico());
+            stmt.setInt(4, t.getId());
+            stmt.execute();
+        } catch(Exception e){
+            System.out.print("Erro de SQL ao alterar ticket: "+e.getMessage());
         }
     }
 }
